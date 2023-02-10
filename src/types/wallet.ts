@@ -117,3 +117,34 @@ export interface IWalletProvider {
      */
     getKeyProvider(networkConfig: NetworkConfig): Promise<IKeyProvider>;
 }
+
+export interface IWalletUI {
+    /**
+     * @description fetch the user address
+     * @returns account address
+     */
+    getAddress(): Promise<string>;
+    /**
+     * @description connect to wallet
+     */
+    connect(): Promise<any>;
+    /**
+     * @description signs the transactions in batch
+     * @param transaction Transactions which needs to get signed
+     */
+    batchSignTypedData(transaction: UnsignedBatchTx): Promise<OperationSign[]>;
+    /**
+     * initializes the wallet
+     * @param chainSymbol network symbol
+     * @param authVerifier authentication token, type and expiry
+     */
+    init(chainSymbol: string, authVerifier: {
+        accessToken: string,
+        typeOfToken: string,
+        tokenExpiry: number,
+    }): void
+    /**
+     * @description opens the wallet ui/ux
+     */
+    open(): void;
+}
