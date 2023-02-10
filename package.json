@@ -3,9 +3,10 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/Zbyteio"
   },
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "Library which stores all the common types and config",
-  "main": "index.ts",
+  "main": "dist/index.js",
+  "browser": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
