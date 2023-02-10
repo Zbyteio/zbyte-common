@@ -1,12 +1,14 @@
-name: development enterprise wallet-lib
+name: development zbyte-common
 
 on:
   push:
     branches:
-      - 'CI'
+      - 'feature/*'
+      - 'bugfix/*'
   pull_request:
     branches:
-      - 'CI'
+      - 'feature/*'
+      - 'bugfix/*'
 
 jobs:
   test:
