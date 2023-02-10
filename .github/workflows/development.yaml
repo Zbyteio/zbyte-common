@@ -1,0 +1,33 @@
+name: development enterprise wallet-lib
+
+on:
+  push:
+    branches:
+      - 'CI'
+  pull_request:
+    branches:
+      - 'CI'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Node.js 18.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.x
+          cache: 'npm'
+          registry-url: https://npm.pkg.github.com
+          scope: '@zbyteio'
+      - name: Clean Install NPM modules
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.FORCI}}
+      - name: Verify code format
+        run: npm run code-format-verify
+      - name: Build wallet ui lib
+        run: npm run build
+      - name: Execute Tests
+        run: npm test

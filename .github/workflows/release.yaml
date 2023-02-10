@@ -1,0 +1,60 @@
+name: release zbyte-common
+
+on:
+  push:
+    branches:
+      - 'main'
+    tags:
+      - 'v*'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: 'npm'
+          registry-url: https://npm.pkg.github.com
+          scope: '@zbyteio'
+      - name: Clean Install NPM modules
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.FORCI}}
+      - name: Verify code format
+        run: npm run code-format-verify
+      - name: Build wallet ui lib
+        run: npm run build
+      - name: Execute Tests
+        run: npm test
+
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    if: github.event_name == 'push'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: 'npm'
+          registry-url: https://npm.pkg.github.com
+          scope: '@zbyteio'
+      - name: Clean Install NPM modules
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.FORCI}}
+      - name: Build wallet ui lib
+        run: npm run build
+      - name: Publish Package
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.FORCI}}
