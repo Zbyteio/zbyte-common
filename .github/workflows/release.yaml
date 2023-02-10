@@ -54,8 +54,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.FORCI}}
       - name: Build zbyte-common lib
         run: npm run build
-      - name: Bump version
-        run: npx standard-version
       - name: Publish package
         run: npm publish
         env:
