@@ -3,7 +3,7 @@ name: release zbyte-common
 on:
   push:
     branches:
-      - 'main'
+      - 'master'
     tags:
       - 'v*'
 
