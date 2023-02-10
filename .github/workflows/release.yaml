@@ -13,10 +13,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Install Node.js 16.x
+      - name: Install Node.js 18.x
         uses: actions/setup-node@v2
         with:
-          node-version: 16.x
+          node-version: 18.x
           cache: 'npm'
           registry-url: https://npm.pkg.github.com
           scope: '@zbyteio'
@@ -26,7 +26,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{secrets.FORCI}}
       - name: Verify code format
         run: npm run code-format-verify
-      - name: Build wallet ui lib
+      - name: Build zbyte-common lib
         run: npm run build
       - name: Execute Tests
         run: npm test
@@ -41,10 +41,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Install Node.js 16.x
+      - name: Install Node.js 18.x
         uses: actions/setup-node@v2
         with:
-          node-version: 16.x
+          node-version: 18.x
           cache: 'npm'
           registry-url: https://npm.pkg.github.com
           scope: '@zbyteio'
@@ -52,9 +52,11 @@ jobs:
         run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{secrets.FORCI}}
-      - name: Build wallet ui lib
+      - name: Build zbyte-common lib
         run: npm run build
-      - name: Publish Package
+      - name: Bump version
+        run: npx standard-version
+      - name: Publish package
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.FORCI}}
