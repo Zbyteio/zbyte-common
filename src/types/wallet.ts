@@ -111,6 +111,7 @@ export interface IWalletProvider {
      * @description Use to connect the wallet provider.
      */
     connect(): Promise<boolean>;
+
     /**
      * @description fetch the wallet provider which internally set the provider 
      * @param networkConfig Blockchain Network parameters
@@ -124,15 +125,18 @@ export interface IWalletUI {
      * @returns account address
      */
     getAddress(): Promise<string>;
+
     /**
      * @description connect to wallet
      */
     connect(): Promise<any>;
+
     /**
      * @description signs the transactions in batch
      * @param transaction Transactions which needs to get signed
      */
     batchSignTypedData(transaction: UnsignedBatchTx): Promise<OperationSign[]>;
+
     /**
      * initializes the wallet
      * @param chainSymbol network symbol
@@ -143,8 +147,14 @@ export interface IWalletUI {
         typeOfToken: string,
         tokenExpiry: number,
     }): void
+
     /**
      * @description opens the wallet ui/ux
      */
     open(): void;
+
+    /**
+     * @description tells whether wallet is connected to keyprovider or not.
+     */
+    isConnected(): boolean;
 }

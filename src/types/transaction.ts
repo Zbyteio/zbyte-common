@@ -1,49 +1,51 @@
 export interface Args {
-    name: string,
-    type: string,
+    name: string
+    type: string
     value: any
 }
 
 type Types = { name: string, type: string }[]
 
 export interface Domain {
-    name: string,
-    version?: string,
-    chainId: number,
-    verifyingContract?: string,
+    name: string
+    version?: string
+    chainId: number
+    verifyingContract?: string
 }
 
 export interface TxnMetadata {
-    functionName: string,
-    contractHash?: string,
-    args?: Args[],
+    functionName: string
+    contractHash?: string
+    args?: Args[]
     subOperation: string
 }
 
 export interface UnSignedTxnMetaData {
-    operation: RelayOperations,
-    zbyteTokens: string,
-    contractHash?: string,
-    functionName: string,
+    operation: RelayOperations
+    zbyteTokens: string
+    contractHash?: string
+    functionName: string
     contractArgs?: Args[]
+    chainID: number
 }
 
 export interface UnsignedTxn {
     data: {
         types: {
-            [key: string]: Types,
+            [key: string]: Types
             EIP712Domain: Types
-        },
-        domain: Domain,
-        primaryType: string,
+        }
+        domain: Domain
+        primaryType: string
         message: any
-    },
+    }
     metadata: TxnMetadata
 }
 
 export enum RelayOperations {
     INVOKE,
-    DEPLOY
+    DEPLOY,
+    TRANSFER
 }
 
 export interface UnsignedBatchTx {
