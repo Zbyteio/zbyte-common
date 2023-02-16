@@ -40,7 +40,7 @@ describe('transaction interfaces ', () => {
 				operation: RelayOperations.TRANSFER,
 				zbyteTokens: '100',
 				functionName: 'foo',
-				chainID:123
+				chainID: 123,
 			};
 			expect(txnMetadata.operation).toEqual(RelayOperations.TRANSFER);
 			expect(txnMetadata.zbyteTokens).toEqual('100');
@@ -88,7 +88,7 @@ describe('transaction interfaces ', () => {
 					operation: RelayOperations.TRANSFER,
 					zbyteTokens: '100',
 					functionName: 'foo',
-					chainID:123
+					chainID: 123,
 				},
 			};
 			expect(unsignedBatchTx.transactions[0].data.domain.chainId).toEqual(1);
