@@ -23,9 +23,11 @@ jobs:
       - name: Clean Install NPM modules
         run: npm ci
         env:
-          NODE_AUTH_TOKEN: ${{secrets.FORCI}}
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - name: Verify code format
-        run: npm run code-format-verify
+        run: npm run check-fmt
+      - name: Check code lint
+        run: npm run lint
       - name: Build zbyte-common lib
         run: npm run build
       - name: Execute Tests
@@ -51,10 +53,10 @@ jobs:
       - name: Clean Install NPM modules
         run: npm ci
         env:
-          NODE_AUTH_TOKEN: ${{secrets.FORCI}}
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - name: Build zbyte-common lib
         run: npm run build
       - name: Publish package
         run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.FORCI}}
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

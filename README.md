@@ -9,6 +9,8 @@ This library will contains the common configs, types, util functions etc.
     - It contains all the constants, all the constant name will be in UPPER CASE and follow the snake case.
   - **types**
     - It contains the name of the types/interfaces, every interface will start with UPPERCASE letter.
+  - **utils**
+    - It contains the common functions.
 - Please Add you own common directory with meaning full name and update the library. 
 
 ## CI-workflow
