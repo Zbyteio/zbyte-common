@@ -47,7 +47,8 @@ describe('getBlockchainNetwork', () => {
 		const chainId = CHAIN_ID_AVAX_TESTNET;
 		const expectedNetworkConfig: NetworkConfig = {
 			networkName: 'Avalanche FUJI C-Chain',
-			networkRpcUrl: 'https://palpable-light-telescope.avalanche-testnet.quiknode.pro/3319775fc3311fa18dcba7018009b9fdf76bb2e9/ext/bc/C/rpc',
+			networkRpcUrl:
+				'https://palpable-light-telescope.avalanche-testnet.quiknode.pro/3319775fc3311fa18dcba7018009b9fdf76bb2e9/ext/bc/C/rpc',
 			chainId: CHAIN_ID_AVAX_TESTNET,
 			chainSymbol: AVAX,
 			explorer: 'https://testnet.snowtrace.io/',
@@ -62,7 +63,8 @@ describe('getBlockchainNetwork', () => {
 		const chainId = CHAIN_ID_MATIC_TESTNET;
 		const expectedNetworkConfig: NetworkConfig = {
 			networkName: 'Matic Mumbai',
-			networkRpcUrl: 'https://chaotic-blue-diagram.matic-testnet.quiknode.pro/7cc140600b3c938447e97e87ff322d50f5cda3a3/',
+			networkRpcUrl:
+				'https://chaotic-blue-diagram.matic-testnet.quiknode.pro/7cc140600b3c938447e97e87ff322d50f5cda3a3/',
 			chainId: CHAIN_ID_MATIC_TESTNET,
 			chainSymbol: MATIC,
 			explorer: 'https://mumbai.polygonscan.com/',
