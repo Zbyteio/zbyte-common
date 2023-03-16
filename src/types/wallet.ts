@@ -53,13 +53,6 @@ export interface IzbyteWallet {
 	 * @returns token balance string
 	 */
 	getTokenBalance(address: string): Promise<string>;
-
-	/**
-	 * @description fetch the transaction history of user
-	 * @param address User address whose transaction need to list
-	 * @returns list of transaction
-	 */
-	listTransaction(address: string): Array<any>;
 }
 
 export interface IKeyProvider {
@@ -129,17 +122,11 @@ export interface IWalletUI {
 	 * @description tells whether wallet is connected to keyprovider or not.
 	 */
 	isConnected(): boolean;
-
-	/**
-	 * @description fetch the transaction history of user
-	 * @param address User address whose transaction need to list
-	 * @returns list of transaction
-	 */
-	listTransaction(address: string): Array<any>;
 }
 
 export interface WalletUIConfig {
 	defaultChainId?: number;
+	baseUrl?: string;
 	loginParams: Web3AuthLoginParams;
 }
 
