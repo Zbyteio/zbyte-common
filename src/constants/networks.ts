@@ -4,5 +4,5 @@ export const CHAIN_ID_AVAX_TESTNET = 43113;
 export const CHAIN_ID_AVAX_MAINNET = 43114;
 export const AVAX = 'avax';
 export const MATIC = 'matic';
-export const TESTNET = 'testnet';
-export const MAINNET = 'mainnet';
+export const TESTNET = 'Testnet';
+export const MAINNET = 'Mainnet';
