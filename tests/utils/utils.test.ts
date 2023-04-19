@@ -46,7 +46,7 @@ describe('getBlockchainNetwork', () => {
 	test('should return correct network config for Avalanche FUJI C-Chain', () => {
 		const chainId = CHAIN_ID_AVAX_TESTNET;
 		const expectedNetworkConfig: NetworkConfig = {
-			networkName: 'Avalanche FUJI C-Chain',
+			networkName: 'Avalanche',
 			networkRpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
 			chainId: CHAIN_ID_AVAX_TESTNET,
 			chainSymbol: AVAX,
@@ -61,7 +61,7 @@ describe('getBlockchainNetwork', () => {
 	test('should return correct network config for Matic Mumbai', () => {
 		const chainId = CHAIN_ID_MATIC_TESTNET;
 		const expectedNetworkConfig: NetworkConfig = {
-			networkName: 'Matic Mumbai',
+			networkName: 'Polygon',
 			networkRpcUrl: 'https://rpc-mumbai.maticvigil.com/',
 			chainId: CHAIN_ID_MATIC_TESTNET,
 			chainSymbol: MATIC,
@@ -76,7 +76,7 @@ describe('getBlockchainNetwork', () => {
 	test('should return correct network config for Avalanche Mainnet C-Chain', () => {
 		const chainId = CHAIN_ID_AVAX_MAINNET;
 		const expectedNetworkConfig: NetworkConfig = {
-			networkName: 'Avalanche Mainnet C-Chain',
+			networkName: 'Avalanche',
 			networkRpcUrl: 'https://api.avax.network/ext/bc/C/rpc',
 			chainId: CHAIN_ID_AVAX_MAINNET,
 			chainSymbol: AVAX,
@@ -91,7 +91,7 @@ describe('getBlockchainNetwork', () => {
 	test('should return correct network config for Matic Mainnet', () => {
 		const chainId = CHAIN_ID_MATIC_MAINNET;
 		const expectedNetworkConfig: NetworkConfig = {
-			networkName: 'Matic Mainnet',
+			networkName: 'Polygon',
 			networkRpcUrl: 'https://rpc-mainnet.maticvigil.com/',
 			chainId: CHAIN_ID_MATIC_MAINNET,
 			chainSymbol: MATIC,
