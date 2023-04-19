@@ -8,7 +8,7 @@ on:
       - 'v*'
 
 jobs:
-  test:
+  code-quality-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,7 +23,7 @@ jobs:
       - name: Clean Install NPM modules
         run: npm ci
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_AUTH_TOKEN: ${{secrets.FORCI}}
       - name: Verify code format
         run: npm run check-fmt
       - name: Check code lint
@@ -33,13 +33,13 @@ jobs:
       - name: Execute Tests
         run: npm test
 
-  publish:
-    needs: test
+  node_module_publish:
+    needs: code-quality-check
     runs-on: ubuntu-latest
     permissions:
       packages: write
       contents: read
-    if: github.event_name == 'push'
+    if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -50,6 +50,11 @@ jobs:
           cache: 'npm'
           registry-url: https://npm.pkg.github.com
           scope: '@zbyteio'
+      - name: Version
+        run: |
+          version=$(echo ${{ github.ref_name }} | cut -d'v' -f2)
+          echo "The tagged version is $version"
+          jq ".version = \"$version\"" package.json > /tmp/file && mv /tmp/file package.json 
       - name: Clean Install NPM modules
         run: npm ci
         env:
