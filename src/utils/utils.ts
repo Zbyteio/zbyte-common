@@ -14,7 +14,7 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 	switch (chainId) {
 		case CHAIN_ID_AVAX_TESTNET:
 			return {
-				networkName: 'Avalanche FUJI C-Chain',
+				networkName: 'Avalanche',
 				networkRpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
 				chainId: CHAIN_ID_AVAX_TESTNET,
 				chainSymbol: AVAX,
@@ -23,7 +23,7 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 			};
 		case CHAIN_ID_MATIC_TESTNET:
 			return {
-				networkName: 'Matic Mumbai',
+				networkName: 'Polygon',
 				networkRpcUrl: 'https://rpc-mumbai.maticvigil.com/',
 				chainId: CHAIN_ID_MATIC_TESTNET,
 				chainSymbol: MATIC,
@@ -32,7 +32,7 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 			};
 		case CHAIN_ID_AVAX_MAINNET:
 			return {
-				networkName: 'Avalanche Mainnet C-Chain',
+				networkName: 'Avalanche',
 				networkRpcUrl: 'https://api.avax.network/ext/bc/C/rpc',
 				chainId: CHAIN_ID_AVAX_MAINNET,
 				chainSymbol: AVAX,
@@ -41,7 +41,7 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 			};
 		case CHAIN_ID_MATIC_MAINNET:
 			return {
-				networkName: 'Matic Mainnet',
+				networkName: 'Polygon',
 				networkRpcUrl: 'https://rpc-mainnet.maticvigil.com/',
 				chainId: CHAIN_ID_MATIC_MAINNET,
 				chainSymbol: MATIC,
