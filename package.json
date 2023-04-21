@@ -32,7 +32,7 @@
 	},
 	"homepage": "https://github.com/Zbyteio/zbyte-common#readme",
 	"dependencies": {
-		"prettier": "^2.8.4"
+		"prettier": "^2.8.7"
 	},
 	"devDependencies": {
 		"@types/jest": "^29.4.0",
