@@ -15,7 +15,6 @@ import {
 	MAINNET,
 } from '../../src/constants';
 import { NetworkConfig } from '../../src/types/common';
-import { OpenSeaERC721Metadata } from '../../src/types/erc721metadata';
 import axios, { AxiosError } from 'axios';
 
 jest.mock('axios'); // Mock axios to avoid actual HTTP requests during testing
@@ -131,41 +130,42 @@ test('getSupportedBlockchainNetworkList should return an array of supported bloc
 	expect(blockchainNetworks).toEqual(expectedBlockchains);
 });
 
-
-
 describe('getNFTMetaData', () => {
-  it('should return NFT metadata when provided with a valid tokenURI', async () => {
-    const mockMetadata = {
-		name: 'My NFT',
-		description: 'This is my awesome NFT!',
-		image: 'https://example.com/nft.jpg',
-		attributes: [{ trait_type: 'color', value: 'blue' }]
-	};
-    (axios.get as jest.Mock).mockResolvedValueOnce({ data: mockMetadata });
+	it('should return NFT metadata when provided with a valid tokenURI', async () => {
+		const mockMetadata = {
+			name: 'My NFT',
+			description: 'This is my awesome NFT!',
+			image: 'https://example.com/nft.jpg',
+			attributes: [{ trait_type: 'color', value: 'blue' }],
+		};
+		(axios.get as jest.Mock).mockResolvedValueOnce({ data: mockMetadata });
 
-    const result = await getNFTMetaData('https://example.com/token.json');
+		const result = await getNFTMetaData('https://example.com/token.json');
 
-    expect(result).toEqual(mockMetadata);
-    expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith('https://example.com/token.json');
-  });
+		expect(result).toEqual(mockMetadata);
+		expect(axios.get).toHaveBeenCalledTimes(1);
+		expect(axios.get).toHaveBeenCalledWith('https://example.com/token.json');
+	});
 
-  it('should throw an error when IPFS service is temporarily down', async () => {
-    const axiosError = {
-      response: { status: 503 },
-    } as AxiosError;
-    (axios.get as jest.Mock).mockRejectedValueOnce(axiosError);
+	it('should throw an error when IPFS service is temporarily down', async () => {
+		const axiosError = {
+			response: { status: 503 },
+		} as AxiosError;
+		(axios.get as jest.Mock).mockRejectedValueOnce(axiosError);
 
-    await expect(getNFTMetaData('https://example.com/token.json')).rejects.toThrow('IPFS service is temporarily Down');
-  });
+		await expect(getNFTMetaData('https://example.com/token.json')).rejects.toThrow(
+			'IPFS service is temporarily Down'
+		);
+	});
 
-  it('should throw an error when failed to fetch metadata from IPFS', async () => {
-    const axiosError = {
-      response: { status: 404 },
-    } as AxiosError;
-    (axios.get as jest.Mock).mockRejectedValueOnce(axiosError);
+	it('should throw an error when failed to fetch metadata from IPFS', async () => {
+		const axiosError = {
+			response: { status: 404 },
+		} as AxiosError;
+		(axios.get as jest.Mock).mockRejectedValueOnce(axiosError);
 
-    await expect(getNFTMetaData('https://example.com/token.json')).rejects.toThrow('Failed to fetch the metaData from IPFS');
-  });
+		await expect(getNFTMetaData('https://example.com/token.json')).rejects.toThrow(
+			'Failed to fetch the metaData from IPFS'
+		);
+	});
 });
-

@@ -10,7 +10,11 @@ import {
 	TESTNET,
 } from '../constants/networks';
 import { NetworkConfig } from '../types/common';
-import { IPFSImageDetails, OpenSeaERC721Metadata } from '../types/erc721metadata';
+import {
+	NFTProcessResponse,
+	NFTResponseData,
+	OpenSeaERC721Metadata,
+} from '../types/erc721metadata';
 
 export function getBlockchainNetwork(chainId: number): NetworkConfig {
 	switch (chainId) {
@@ -88,14 +92,10 @@ export async function getNFTMetaData(tokenURI: string): Promise<OpenSeaERC721Met
 	}
 }
 
-export async function getImageDetailsFromIPFS(ipfsURL: string): Promise<IPFSImageDetails> {
+export async function getImageDetailsFromIPFS(ipfsURL: string): Promise<Blob> {
 	try {
-		const response = await axios.get(ipfsURL);
-		return {
-			imageData: response.data,
-			sizeInBytes: response.headers['content-length'],
-			imageType: response.headers['content-type'],
-		};
+		const response = await axios.get(ipfsURL, { responseType: 'blob' });
+		return response.data;
 	} catch (error) {
 		const axiosError = error as AxiosError;
 		if (axiosError.response?.status === 503) {
@@ -104,4 +104,19 @@ export async function getImageDetailsFromIPFS(ipfsURL: string): Promise<IPFSImag
 			throw new Error('Failed to fetch the metaData from IPFS');
 		}
 	}
+}
+
+export async function processNFTData(nftDetail: NFTResponseData): Promise<NFTProcessResponse> {
+	const metadata = await getNFTMetaData(nftDetail.tokenURI);
+	const imageData = await getImageDetailsFromIPFS(metadata.image);
+	const processedNFT: NFTProcessResponse = {
+		details: nftDetail,
+		metadata: metadata,
+		imageDetail: imageData,
+	};
+	return processedNFT;
+}
+
+export async function processNFTlist(nftList: Array<NFTResponseData>) {
+	return await Promise.all(nftList.map(processNFTData));
 }

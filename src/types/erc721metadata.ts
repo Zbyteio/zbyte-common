@@ -8,12 +8,7 @@ export interface ERC721Metadata {
 	name: string;
 	description: string;
 	image: string;
-}
-
-export interface IPFSImageDetails {
-	imageType: string;
-	sizeInBytes: string;
-	imageData: any;
+	tags: Array<string>;
 }
 
 /**
@@ -44,4 +39,22 @@ export interface OpenSeaERC721Metadata extends ERC721Metadata {
 	animation_url: string;
 	background_color: string;
 	attributes: Array<CustomAttribute | OpenSeaAttribute>;
+}
+
+export interface NFTResponseData {
+	tokenID: string;
+	token_address: string;
+	contract_type: string;
+	name: string;
+	symbol: string;
+	tokenURI: string;
+	transactionHash: string;
+	date: string;
+	chainID: string;
+}
+
+export interface NFTProcessResponse {
+	details: NFTResponseData;
+	metadata: OpenSeaERC721Metadata;
+	imageDetail: Blob;
 }
