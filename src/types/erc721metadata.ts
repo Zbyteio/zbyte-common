@@ -56,5 +56,5 @@ export interface NFTResponseData {
 export interface NFTProcessResponse {
 	details: NFTResponseData;
 	metadata: OpenSeaERC721Metadata;
-	imageDetail: Blob;
+	imageDetail?: Blob;
 }

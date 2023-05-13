@@ -43,13 +43,6 @@ export interface IzbyteWallet {
 	batchSignTypedData(transaction: UnsignedBatchTx): Promise<OperationSign[]>;
 
 	/**
-	 * @description Sign the EIP-712 transaction.
-	 * @param txnMessage: Serialized EIP-712 message
-	 * @param chainId: blockchain id which need the signature
-	 */
-	signTypedData(txnMessage: string, chainId: number): Promise<string>;
-
-	/**
 	 * @description Fetch zbyte token for the given user's address
 	 * @param address User's account address
 	 * @returns token balance string

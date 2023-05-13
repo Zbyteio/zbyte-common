@@ -106,17 +106,16 @@ export async function getImageDetailsFromIPFS(ipfsURL: string): Promise<Blob> {
 	}
 }
 
-export async function processNFTData(nftDetail: NFTResponseData): Promise<NFTProcessResponse> {
+export async function processNFTData(
+	nftDetail: NFTResponseData,
+	isImageFromIPFS = true
+): Promise<NFTProcessResponse> {
 	const metadata = await getNFTMetaData(nftDetail.tokenURI);
-	const imageData = await getImageDetailsFromIPFS(metadata.image);
+	const imageData = isImageFromIPFS ? await getImageDetailsFromIPFS(metadata.image) : undefined;
 	const processedNFT: NFTProcessResponse = {
 		details: nftDetail,
 		metadata: metadata,
 		imageDetail: imageData,
 	};
 	return processedNFT;
-}
-
-export async function processNFTlist(nftList: Array<NFTResponseData>) {
-	return await Promise.all(nftList.map(processNFTData));
 }
