@@ -42,6 +42,7 @@ export interface OpenSeaERC721Metadata extends ERC721Metadata {
 }
 
 export interface NFTResponseData {
+	NFT_ID: string;
 	tokenID: string;
 	token_address: string;
 	contract_type: string;
