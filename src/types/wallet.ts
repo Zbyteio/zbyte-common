@@ -17,14 +17,9 @@ export interface IzbyteWallet {
 	 */
 	isConnected(): boolean;
 	/**
-	 *
-	 * @param value
-	 */
-	injectAuthVerifier(value: Web3AuthLoginParams): void;
-	/**
 	 * @description Transfer token to other person
 	 *
-	 * @param toAddress recipent address
+	 * @param toAddress recipient address
 	 * @param amount number of zbyte token
 	 * @returns receipt for the blockchain transaction
 	 */
@@ -138,28 +133,6 @@ export interface Web3AuthLoginParams {
 	accessToken: string;
 	tokenExpiry?: number;
 	typeOfToken?: string;
-}
-
-export interface RecoveryShareRequest {
-	passphrase: string;
-	email: string;
-	publicAddress: string;
-	verifier: string;
-	clientId: string;
-}
-
-export interface RecoveryShareResponse {
-	status: boolean;
-	data: {
-		clientId: string;
-		email: string;
-		id: string;
-		passphrase: string;
-		publicAddress: string;
-		question: string;
-		updated_at: string;
-		verifier: string;
-	};
 }
 
 export declare const LOGIN: {

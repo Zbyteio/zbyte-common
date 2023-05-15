@@ -1,3 +1,4 @@
+import axios, { AxiosError } from 'axios';
 import {
 	AVAX,
 	CHAIN_ID_AVAX_MAINNET,
@@ -9,12 +10,17 @@ import {
 	TESTNET,
 } from '../constants/networks';
 import { NetworkConfig } from '../types/common';
+import {
+	NFTProcessResponse,
+	NFTResponseData,
+	OpenSeaERC721Metadata,
+} from '../types/erc721metadata';
 
 export function getBlockchainNetwork(chainId: number): NetworkConfig {
 	switch (chainId) {
 		case CHAIN_ID_AVAX_TESTNET:
 			return {
-				networkName: 'Avalanche FUJI C-Chain',
+				networkName: 'Avalanche',
 				networkRpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
 				chainId: CHAIN_ID_AVAX_TESTNET,
 				chainSymbol: AVAX,
@@ -23,7 +29,7 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 			};
 		case CHAIN_ID_MATIC_TESTNET:
 			return {
-				networkName: 'Matic Mumbai',
+				networkName: 'Polygon',
 				networkRpcUrl: 'https://rpc-mumbai.maticvigil.com/',
 				chainId: CHAIN_ID_MATIC_TESTNET,
 				chainSymbol: MATIC,
@@ -32,7 +38,7 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 			};
 		case CHAIN_ID_AVAX_MAINNET:
 			return {
-				networkName: 'Avalanche Mainnet C-Chain',
+				networkName: 'Avalanche',
 				networkRpcUrl: 'https://api.avax.network/ext/bc/C/rpc',
 				chainId: CHAIN_ID_AVAX_MAINNET,
 				chainSymbol: AVAX,
@@ -41,7 +47,7 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 			};
 		case CHAIN_ID_MATIC_MAINNET:
 			return {
-				networkName: 'Matic Mainnet',
+				networkName: 'Polygon',
 				networkRpcUrl: 'https://rpc-mainnet.maticvigil.com/',
 				chainId: CHAIN_ID_MATIC_MAINNET,
 				chainSymbol: MATIC,
@@ -70,4 +76,46 @@ export function getSupportedBlockchainNetworkList() {
 export function convertzByteToUsd(zbyteAmount: string, precisionScale = 2) {
 	const value = Number(zbyteAmount) * 0.02;
 	return Number(value).toFixed(precisionScale);
+}
+
+export async function getNFTMetaData(tokenURI: string): Promise<OpenSeaERC721Metadata> {
+	try {
+		const response = await axios.get(tokenURI);
+		return response.data;
+	} catch (error) {
+		const axiosError = error as AxiosError;
+		if (axiosError.response?.status === 503) {
+			throw new Error('IPFS service is temporarily Down');
+		} else {
+			throw new Error('Failed to fetch the metaData from IPFS');
+		}
+	}
+}
+
+export async function getImageDetailsFromIPFS(ipfsURL: string): Promise<Blob> {
+	try {
+		const response = await axios.get(ipfsURL, { responseType: 'blob' });
+		return response.data;
+	} catch (error) {
+		const axiosError = error as AxiosError;
+		if (axiosError.response?.status === 503) {
+			throw new Error('IPFS service is temporarily Down');
+		} else {
+			throw new Error('Failed to fetch the metaData from IPFS');
+		}
+	}
+}
+
+export async function processNFTData(
+	nftDetail: NFTResponseData,
+	isImageFromIPFS = true
+): Promise<NFTProcessResponse> {
+	const metadata = await getNFTMetaData(nftDetail.tokenURI);
+	const imageData = isImageFromIPFS ? await getImageDetailsFromIPFS(metadata.image) : undefined;
+	const processedNFT: NFTProcessResponse = {
+		details: nftDetail,
+		metadata: metadata,
+		imageDetail: imageData,
+	};
+	return processedNFT;
 }

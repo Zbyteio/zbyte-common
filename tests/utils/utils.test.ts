@@ -1,6 +1,7 @@
 import {
 	convertzByteToUsd,
 	getBlockchainNetwork,
+	getNFTMetaData,
 	getSupportedBlockchainNetworkList,
 } from '../../src/utils/utils';
 import {
@@ -14,6 +15,9 @@ import {
 	MAINNET,
 } from '../../src/constants';
 import { NetworkConfig } from '../../src/types/common';
+import axios, { AxiosError } from 'axios';
+
+jest.mock('axios'); // Mock axios to avoid actual HTTP requests during testing
 
 describe('convertzByteToUsd', () => {
 	// Positive scenario - should convert zByte to USD correctly with default precision scale
@@ -46,7 +50,7 @@ describe('getBlockchainNetwork', () => {
 	test('should return correct network config for Avalanche FUJI C-Chain', () => {
 		const chainId = CHAIN_ID_AVAX_TESTNET;
 		const expectedNetworkConfig: NetworkConfig = {
-			networkName: 'Avalanche FUJI C-Chain',
+			networkName: 'Avalanche',
 			networkRpcUrl: 'https://api.avax-test.network/ext/bc/C/rpc',
 			chainId: CHAIN_ID_AVAX_TESTNET,
 			chainSymbol: AVAX,
@@ -58,10 +62,10 @@ describe('getBlockchainNetwork', () => {
 	});
 
 	// Positive scenario - should return the correct network configuration for Matic Mumbai
-	test('should return correct network config for Matic Mumbai', () => {
+	test('should return correct network config for Polygon Testnet', () => {
 		const chainId = CHAIN_ID_MATIC_TESTNET;
 		const expectedNetworkConfig: NetworkConfig = {
-			networkName: 'Matic Mumbai',
+			networkName: 'Polygon',
 			networkRpcUrl: 'https://rpc-mumbai.maticvigil.com/',
 			chainId: CHAIN_ID_MATIC_TESTNET,
 			chainSymbol: MATIC,
@@ -73,10 +77,10 @@ describe('getBlockchainNetwork', () => {
 	});
 
 	// Positive scenario - should return the correct network configuration for Avalanche Mainnet C-Chain
-	test('should return correct network config for Avalanche Mainnet C-Chain', () => {
+	test('should return correct network config for Avalanche Mainnet', () => {
 		const chainId = CHAIN_ID_AVAX_MAINNET;
 		const expectedNetworkConfig: NetworkConfig = {
-			networkName: 'Avalanche Mainnet C-Chain',
+			networkName: 'Avalanche',
 			networkRpcUrl: 'https://api.avax.network/ext/bc/C/rpc',
 			chainId: CHAIN_ID_AVAX_MAINNET,
 			chainSymbol: AVAX,
@@ -88,10 +92,10 @@ describe('getBlockchainNetwork', () => {
 	});
 
 	// Positive scenario - should return the correct network configuration for Matic Mainnet
-	test('should return correct network config for Matic Mainnet', () => {
+	test('should return correct network config for Polygon Mainnet', () => {
 		const chainId = CHAIN_ID_MATIC_MAINNET;
 		const expectedNetworkConfig: NetworkConfig = {
-			networkName: 'Matic Mainnet',
+			networkName: 'Polygon',
 			networkRpcUrl: 'https://rpc-mainnet.maticvigil.com/',
 			chainId: CHAIN_ID_MATIC_MAINNET,
 			chainSymbol: MATIC,
@@ -124,4 +128,44 @@ test('getSupportedBlockchainNetworkList should return an array of supported bloc
 	const blockchainNetworks = getSupportedBlockchainNetworkList();
 
 	expect(blockchainNetworks).toEqual(expectedBlockchains);
+});
+
+describe('getNFTMetaData', () => {
+	it('should return NFT metadata when provided with a valid tokenURI', async () => {
+		const mockMetadata = {
+			name: 'My NFT',
+			description: 'This is my awesome NFT!',
+			image: 'https://example.com/nft.jpg',
+			attributes: [{ trait_type: 'color', value: 'blue' }],
+		};
+		(axios.get as jest.Mock).mockResolvedValueOnce({ data: mockMetadata });
+
+		const result = await getNFTMetaData('https://example.com/token.json');
+
+		expect(result).toEqual(mockMetadata);
+		expect(axios.get).toHaveBeenCalledTimes(1);
+		expect(axios.get).toHaveBeenCalledWith('https://example.com/token.json');
+	});
+
+	it('should throw an error when IPFS service is temporarily down', async () => {
+		const axiosError = {
+			response: { status: 503 },
+		} as AxiosError;
+		(axios.get as jest.Mock).mockRejectedValueOnce(axiosError);
+
+		await expect(getNFTMetaData('https://example.com/token.json')).rejects.toThrow(
+			'IPFS service is temporarily Down'
+		);
+	});
+
+	it('should throw an error when failed to fetch metadata from IPFS', async () => {
+		const axiosError = {
+			response: { status: 404 },
+		} as AxiosError;
+		(axios.get as jest.Mock).mockRejectedValueOnce(axiosError);
+
+		await expect(getNFTMetaData('https://example.com/token.json')).rejects.toThrow(
+			'Failed to fetch the metaData from IPFS'
+		);
+	});
 });
