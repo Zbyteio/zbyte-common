@@ -119,3 +119,11 @@ export async function processNFTData(
 	};
 	return processedNFT;
 }
+
+export function isValidEVMAddress(address: string): boolean {
+	const isValidFormat = /^(0x)[0-9a-fA-F]{40}$/i.test(address);
+	if (!isValidFormat) {
+		return false;
+	}
+	return true;
+}
