@@ -43,15 +43,23 @@ export interface OpenSeaERC721Metadata extends ERC721Metadata {
 
 export interface NFTResponseData {
 	nftId: string;
+	id: string;
 	tokenId: string;
 	tokenAddress: string;
 	contractType: string;
 	name: string;
-	symbol: string;
+	currency: string;
 	tokenURI: string;
-	transactionHash: string;
-	date: string;
+	ownershipTrxHash: string;
+	effectiveDate: string;
 	chainId: string;
+	walletAddress: string;
+}
+
+export interface TxnHistoryResponse {
+	walletAddress: string;
+	tillDate: string;
+	preOwnershipTrxHash: string;
 }
 
 export interface NFTProcessResponse {
