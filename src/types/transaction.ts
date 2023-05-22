@@ -60,6 +60,7 @@ export enum RelayOperations {
 	INVOKE,
 	DEPLOY,
 	TRANSFER,
+	NFT_TRANSFER,
 }
 
 /**
