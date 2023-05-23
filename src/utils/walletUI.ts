@@ -28,7 +28,7 @@ export function formatZbyteToken(amount: string) {
 		 * array to push group of 3s,
 		 * if a number is 12345, its group of 3s is 12 and 345
 		 */
-		const groupOf3s = [];
+		const groupOf3s: string[] = [];
 		if (lastIndexOfNumberWithoutDecimal <= amount.length) {
 			let i = lastIndexOfNumberWithoutDecimal % 3;
 			const aGroupOf3 = amount.substring(0, i);
@@ -99,7 +99,7 @@ export function formatZbyteTokenWithPlus(amount: string) {
 		 * array to push group of 3s,
 		 * if a number is 12345, its group of 3s is 12 and 345
 		 */
-		const groupOf3s = [];
+		const groupOf3s: string[] = [];
 		if (lastIndexOfNumberWithoutDecimal <= amount.length) {
 			let i = lastIndexOfNumberWithoutDecimal % 3;
 			const aGroupOf3 = amount.substring(0, i);
