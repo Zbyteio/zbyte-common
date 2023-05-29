@@ -43,6 +43,12 @@ export interface IzbyteWallet {
 	batchSignTypedData(transaction: UnsignedBatchTx): Promise<OperationSign[]>;
 
 	/**
+	 * @description signs the transactions in batch
+	 * @param transaction Transactions which needs to get signed
+	 */
+	signTypedData(txnMessage: string, chainId: number): string;
+
+	/**
 	 * @description Fetch zbyte token for the given user's address
 	 * @param address User's account address
 	 * @returns token balance string
