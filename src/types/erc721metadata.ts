@@ -9,6 +9,7 @@ export interface ERC721Metadata {
 	description: string;
 	image: string;
 	tags: Array<string>;
+	author?: string;
 }
 
 /**
@@ -34,11 +35,11 @@ export type OpenSeaAttribute = {
 };
 
 export interface OpenSeaERC721Metadata extends ERC721Metadata {
-	youtube_url: string;
-	external_url: string;
-	animation_url: string;
-	background_color: string;
-	attributes: Array<CustomAttribute | OpenSeaAttribute>;
+	youtube_url?: string;
+	external_url?: string;
+	animation_url?: string;
+	background_color?: string;
+	attributes?: Array<CustomAttribute | OpenSeaAttribute>;
 }
 
 export interface NFTResponseData {
