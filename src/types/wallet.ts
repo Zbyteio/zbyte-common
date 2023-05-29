@@ -43,8 +43,9 @@ export interface IzbyteWallet {
 	batchSignTypedData(transaction: UnsignedBatchTx): Promise<OperationSign[]>;
 
 	/**
-	 * @description signs the transactions in batch
-	 * @param transaction Transactions which needs to get signed
+	 * @description signs the EIP-712 typed_v4 data
+	 * @param transaction Serialized EIP-712 Transaction
+	 * @param chainId chainId of the blockchain
 	 */
 	signTypedData(txnMessage: string, chainId: number): string;
 
