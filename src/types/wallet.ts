@@ -47,7 +47,7 @@ export interface IzbyteWallet {
 	 * @param transaction Serialized EIP-712 Transaction
 	 * @param chainId chainId of the blockchain
 	 */
-	signTypedData(txnMessage: string, chainId: number): string;
+	signTypedData(txnMessage: string, chainId: number): Promise<string>;
 
 	/**
 	 * @description Fetch zbyte token for the given user's address
