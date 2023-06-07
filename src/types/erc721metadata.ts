@@ -10,6 +10,7 @@ export interface ERC721Metadata {
 	image: string;
 	tags: Array<string>;
 	author?: string;
+	isCollection?: boolean;
 }
 
 /**
@@ -55,6 +56,8 @@ export interface NFTResponseData {
 	effectiveDate: string;
 	chainId: string;
 	walletAddress: string;
+	details: OpenSeaERC721Metadata;
+	previousOwnership: Array<TxnHistoryResponse>;
 }
 
 export interface TxnHistoryResponse {
