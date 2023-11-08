@@ -20,7 +20,7 @@ export interface IzbyteWallet {
 	 * @description Transfer token to other person
 	 *
 	 * @param toAddress recipient address
-	 * @param amount number of zbyte token
+	 * @param amount number of DPLAT token
 	 * @returns receipt for the blockchain transaction
 	 */
 	sendToken(toAddress: string, amount: string): Promise<any>;
@@ -50,7 +50,7 @@ export interface IzbyteWallet {
 	signTypedData(txnMessage: string, chainId: number): Promise<string>;
 
 	/**
-	 * @description Fetch zbyte token for the given user's address
+	 * @description Fetch DPLAT token for the given user's address
 	 * @param address User's account address
 	 * @returns token balance string
 	 */
