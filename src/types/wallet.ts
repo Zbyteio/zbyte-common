@@ -17,15 +17,10 @@ export interface IzbyteWallet {
 	 */
 	isConnected(): boolean;
 	/**
-	 *
-	 * @param value
-	 */
-	injectAuthVerifier(value: Web3AuthLoginParams): void;
-	/**
 	 * @description Transfer token to other person
 	 *
-	 * @param toAddress recipent address
-	 * @param amount number of zbyte token
+	 * @param toAddress recipient address
+	 * @param amount number of DPLAT token
 	 * @returns receipt for the blockchain transaction
 	 */
 	sendToken(toAddress: string, amount: string): Promise<any>;
@@ -48,7 +43,14 @@ export interface IzbyteWallet {
 	batchSignTypedData(transaction: UnsignedBatchTx): Promise<OperationSign[]>;
 
 	/**
-	 * @description Fetch zbyte token for the given user's address
+	 * @description signs the EIP-712 typed_v4 data
+	 * @param transaction Serialized EIP-712 Transaction
+	 * @param chainId chainId of the blockchain
+	 */
+	signTypedData(txnMessage: string, chainId: number): Promise<string>;
+
+	/**
+	 * @description Fetch DPLAT token for the given user's address
 	 * @param address User's account address
 	 * @returns token balance string
 	 */
@@ -138,28 +140,6 @@ export interface Web3AuthLoginParams {
 	accessToken: string;
 	tokenExpiry?: number;
 	typeOfToken?: string;
-}
-
-export interface RecoveryShareRequest {
-	passphrase: string;
-	email: string;
-	publicAddress: string;
-	verifier: string;
-	clientId: string;
-}
-
-export interface RecoveryShareResponse {
-	status: boolean;
-	data: {
-		clientId: string;
-		email: string;
-		id: string;
-		passphrase: string;
-		publicAddress: string;
-		question: string;
-		updated_at: string;
-		verifier: string;
-	};
 }
 
 export declare const LOGIN: {

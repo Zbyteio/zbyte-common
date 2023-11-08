@@ -1,3 +1,4 @@
+import axios, { AxiosError } from 'axios';
 import {
 	AVAX,
 	CHAIN_ID_AVAX_MAINNET,
@@ -9,6 +10,11 @@ import {
 	TESTNET,
 } from '../constants/networks';
 import { NetworkConfig } from '../types/common';
+import {
+	NFTProcessResponse,
+	NFTResponseData,
+	OpenSeaERC721Metadata,
+} from '../types/erc721metadata';
 
 export function getBlockchainNetwork(chainId: number): NetworkConfig {
 	switch (chainId) {
@@ -70,4 +76,54 @@ export function getSupportedBlockchainNetworkList() {
 export function convertzByteToUsd(zbyteAmount: string, precisionScale = 2) {
 	const value = Number(zbyteAmount) * 0.02;
 	return Number(value).toFixed(precisionScale);
+}
+
+export async function getNFTMetaData(tokenURI: string): Promise<OpenSeaERC721Metadata> {
+	try {
+		const response = await axios.get(tokenURI);
+		return response.data;
+	} catch (error) {
+		const axiosError = error as AxiosError;
+		if (axiosError.response?.status === 503) {
+			throw new Error('IPFS service is temporarily Down');
+		} else {
+			throw new Error('Failed to fetch the metaData from IPFS');
+		}
+	}
+}
+
+export async function getImageDetailsFromIPFS(ipfsURL: string): Promise<Blob> {
+	try {
+		const response = await axios.get(ipfsURL, { responseType: 'blob' });
+		return response.data;
+	} catch (error) {
+		const axiosError = error as AxiosError;
+		if (axiosError.response?.status === 503) {
+			throw new Error('IPFS service is temporarily Down');
+		} else {
+			throw new Error('Failed to fetch the metaData from IPFS');
+		}
+	}
+}
+
+export async function processNFTData(
+	nftDetail: NFTResponseData,
+	isImageFromIPFS = true
+): Promise<NFTProcessResponse> {
+	const metadata = await getNFTMetaData(nftDetail.tokenURI);
+	const imageData = isImageFromIPFS ? await getImageDetailsFromIPFS(metadata.image) : undefined;
+	const processedNFT: NFTProcessResponse = {
+		details: nftDetail,
+		metadata: metadata,
+		imageDetail: imageData,
+	};
+	return processedNFT;
+}
+
+export function isValidEVMAddress(address: string): boolean {
+	const isValidFormat = /^(0x)[0-9a-fA-F]{40}$/i.test(address);
+	if (!isValidFormat) {
+		return false;
+	}
+	return true;
 }

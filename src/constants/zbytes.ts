@@ -1,21 +1,31 @@
-export const ZBYTE_FAUCET_CONTRACT_HASH = '0x8f3Ae3d4Dd948fef7bf907e79ACc5a395a6280dc';
-export const ZBYTE_TOKEN_CONTRACT_HASH = '0xE2cf236999664C898c61bD40096e4A733F006C7E';
-export const ZBYTE_TOKEN_CONTRACT_ABI = [
+export const DPLAT_FAUCET_CONTRACT_HASH = '0x3B66eE40AB7d702c60F8C1763764aC5a46810881';
+export const DPLAT_ERC20_CONTRACT_HASH = '0x43a12d65532d40aBc7Ee721e6f91267969b8b8E3';
+export const DPLAT_ERC20_CONTRACT_ABI = [
 	{
 		inputs: [
 			{
 				internalType: 'address',
-				name: '_forwarder',
-				type: 'address',
-			},
-			{
-				internalType: 'address',
-				name: '_holder',
+				name: 'forwarder_',
 				type: 'address',
 			},
 		],
 		stateMutability: 'nonpayable',
 		type: 'constructor',
+	},
+	{
+		inputs: [],
+		name: 'CannotSendEther',
+		type: 'error',
+	},
+	{
+		inputs: [],
+		name: 'ZeroAddress',
+		type: 'error',
+	},
+	{
+		inputs: [],
+		name: 'ZeroValue',
+		type: 'error',
 	},
 	{
 		anonymous: false,
@@ -46,6 +56,25 @@ export const ZBYTE_TOKEN_CONTRACT_ABI = [
 		anonymous: false,
 		inputs: [
 			{
+				indexed: false,
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+			{
+				indexed: false,
+				internalType: 'address',
+				name: '',
+				type: 'address',
+			},
+		],
+		name: 'ForwarderSet',
+		type: 'event',
+	},
+	{
+		anonymous: false,
+		inputs: [
+			{
 				indexed: true,
 				internalType: 'address',
 				name: 'previousOwner',
@@ -59,38 +88,6 @@ export const ZBYTE_TOKEN_CONTRACT_ABI = [
 			},
 		],
 		name: 'OwnershipTransferred',
-		type: 'event',
-	},
-	{
-		anonymous: false,
-		inputs: [
-			{
-				indexed: false,
-				internalType: 'address',
-				name: 'account',
-				type: 'address',
-			},
-		],
-		name: 'Paused',
-		type: 'event',
-	},
-	{
-		anonymous: false,
-		inputs: [
-			{
-				indexed: false,
-				internalType: 'address',
-				name: '',
-				type: 'address',
-			},
-			{
-				indexed: false,
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256',
-			},
-		],
-		name: 'ReceivedEther',
 		type: 'event',
 	},
 	{
@@ -116,19 +113,6 @@ export const ZBYTE_TOKEN_CONTRACT_ABI = [
 			},
 		],
 		name: 'Transfer',
-		type: 'event',
-	},
-	{
-		anonymous: false,
-		inputs: [
-			{
-				indexed: false,
-				internalType: 'address',
-				name: 'account',
-				type: 'address',
-			},
-		],
-		name: 'Unpaused',
 		type: 'event',
 	},
 	{
@@ -199,24 +183,6 @@ export const ZBYTE_TOKEN_CONTRACT_ABI = [
 		type: 'function',
 	},
 	{
-		inputs: [
-			{
-				internalType: 'address',
-				name: 'userAddress',
-				type: 'address',
-			},
-			{
-				internalType: 'uint256',
-				name: 'amount',
-				type: 'uint256',
-			},
-		],
-		name: 'burn',
-		outputs: [],
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
 		inputs: [],
 		name: 'decimals',
 		outputs: [
@@ -254,32 +220,6 @@ export const ZBYTE_TOKEN_CONTRACT_ABI = [
 		type: 'function',
 	},
 	{
-		inputs: [],
-		name: 'getTrustedForwarder',
-		outputs: [
-			{
-				internalType: 'address',
-				name: 'forwarder',
-				type: 'address',
-			},
-		],
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		inputs: [],
-		name: 'holder',
-		outputs: [
-			{
-				internalType: 'address',
-				name: '',
-				type: 'address',
-			},
-		],
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
 		inputs: [
 			{
 				internalType: 'address',
@@ -307,7 +247,7 @@ export const ZBYTE_TOKEN_CONTRACT_ABI = [
 		inputs: [
 			{
 				internalType: 'address',
-				name: 'forwarder',
+				name: 'forwarder_',
 				type: 'address',
 			},
 		],
@@ -350,26 +290,6 @@ export const ZBYTE_TOKEN_CONTRACT_ABI = [
 	},
 	{
 		inputs: [],
-		name: 'pause',
-		outputs: [],
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		inputs: [],
-		name: 'paused',
-		outputs: [
-			{
-				internalType: 'bool',
-				name: '',
-				type: 'bool',
-			},
-		],
-		stateMutability: 'view',
-		type: 'function',
-	},
-	{
-		inputs: [],
 		name: 'renounceOwnership',
 		outputs: [],
 		stateMutability: 'nonpayable',
@@ -379,11 +299,11 @@ export const ZBYTE_TOKEN_CONTRACT_ABI = [
 		inputs: [
 			{
 				internalType: 'address',
-				name: 'forwarderAddress',
+				name: 'forwarder_',
 				type: 'address',
 			},
 		],
-		name: 'setForwarder',
+		name: 'setTrustedForwarder',
 		outputs: [],
 		stateMutability: 'nonpayable',
 		type: 'function',
@@ -418,7 +338,7 @@ export const ZBYTE_TOKEN_CONTRACT_ABI = [
 		inputs: [
 			{
 				internalType: 'address',
-				name: 'to',
+				name: 'recipient',
 				type: 'address',
 			},
 			{
@@ -442,12 +362,12 @@ export const ZBYTE_TOKEN_CONTRACT_ABI = [
 		inputs: [
 			{
 				internalType: 'address',
-				name: 'from',
+				name: 'sender',
 				type: 'address',
 			},
 			{
 				internalType: 'address',
-				name: 'to',
+				name: 'recipient',
 				type: 'address',
 			},
 			{
@@ -476,13 +396,6 @@ export const ZBYTE_TOKEN_CONTRACT_ABI = [
 			},
 		],
 		name: 'transferOwnership',
-		outputs: [],
-		stateMutability: 'nonpayable',
-		type: 'function',
-	},
-	{
-		inputs: [],
-		name: 'unpause',
 		outputs: [],
 		stateMutability: 'nonpayable',
 		type: 'function',
