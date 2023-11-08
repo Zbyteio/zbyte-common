@@ -1,4 +1,4 @@
-const path = require('path');
+import path from 'path';
 
 module.exports = {
 	entry: './src/index.ts',
@@ -8,7 +8,8 @@ module.exports = {
 	output: {
 		filename: 'bundle.js',
 		path: path.resolve(__dirname, 'dist'),
-		libraryTarget : "umd"
+		libraryTarget : "umd",
+		globalObject: "this"
 	},
 	resolve: {
 		extensions: ['.ts', '.js'],
