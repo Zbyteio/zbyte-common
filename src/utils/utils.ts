@@ -127,3 +127,69 @@ export function isValidEVMAddress(address: string): boolean {
 	}
 	return true;
 }
+
+export function getRPCNetworkUrls(chainId: number): Array<string> {
+	switch (chainId) {
+		case CHAIN_ID_AVAX_TESTNET:
+			return [
+				'https://rpc.ankr.com/avalanche_fuji',
+				'https://ava-testnet.public.blastapi.io/ext/bc/C/rpc',
+				'https://avalanche-fuji.blockpi.network/v1/rpc/public',
+				'https://api.avax-test.network/ext/bc/C/rpc',
+			];
+		case CHAIN_ID_MATIC_TESTNET:
+			return [
+				'https://api.zan.top/node/v1/polygon/mumbai/public',
+				'https://rpc.ankr.com/polygon_mumbai',
+				'https://polygon-mumbai.blockpi.network/v1/rpc/public',
+				'https://endpoints.omniatech.io/v1/matic/mumbai/public',
+				'https://polygon-testnet.public.blastapi.io',
+			];
+		case CHAIN_ID_AVAX_MAINNET:
+			return [
+				'https://avalanche.public-rpc.com',
+				'https://endpoints.omniatech.io/v1/avax/mainnet/public',
+				'https://rpc.ankr.com/avalanche',
+				'https://api.avax.network/ext/bc/C/rpc',
+			];
+		case CHAIN_ID_MATIC_MAINNET:
+			return [
+				'https://polygon.llamarpc.com',
+				'https://polygon-bor.publicnode.com',
+				'https://rpc.ankr.com/polygon',
+				'https://polygon-rpc.com',
+				'https://polygon.rpc.blxrbdn.com',
+			];
+		default:
+			throw new Error('Given blockchain Id is not yet supported');
+	}
+}
+
+export async function getOnlineRpcURL(chainId: number) {
+	const rpcUrls = getRPCNetworkUrls(chainId);
+	const promises = rpcUrls.map(isRpcURLOnline);
+	return Promise.race(promises.filter((promise) => promise !== null)) as Promise<string | null>;
+}
+
+export async function isRpcURLOnline(rpcURL: string): Promise<string> {
+	const data = JSON.stringify({
+		method: 'eth_blockNumber',
+		id: 0,
+		jsonrpc: '2.0',
+	});
+
+	const config = {
+		method: 'post',
+		maxBodyLength: Infinity,
+		url: rpcURL,
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		data: data,
+	};
+	const result = await axios.request(config);
+	if (result.data.error) {
+		throw new Error('RPC node offline!!!');
+	}
+	return rpcURL;
+}
