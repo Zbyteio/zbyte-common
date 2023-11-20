@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 export const DPLAT_FAUCET_CONTRACT_HASH = '0x146171E835d9b674681e15a5e3d5714f7658Ac5e';
 export const DPLAT_ERC20_CONTRACT_HASH = '0x2bC129D86a25FbD49FaA7F8AEF5076C29BE6C739';
 export const DPLAT_ERC20_CONTRACT_ABI = [
@@ -405,3 +407,59 @@ export const DPLAT_ERC20_CONTRACT_ABI = [
 		type: 'receive',
 	},
 ];
+
+export const FORWARDER_DOMAIN = {
+	name: 'MinimalForwarder',
+	version: '0.0.1',
+	chainId: 0,
+	verifyingContract: '',
+};
+
+export const EIP_712_DOMAIN = [
+	{ name: 'name', type: 'string' },
+	{ name: 'version', type: 'string' },
+	{ name: 'chainId', type: 'uint256' },
+	{ name: 'verifyingContract', type: 'address' },
+];
+
+export const FORWARDER_TYPES = {
+	EIP712Domain: EIP_712_DOMAIN,
+	ForwardRequest: [
+		{ name: 'from', type: 'address' },
+		{ name: 'to', type: 'address' },
+		{ name: 'value', type: 'uint256' },
+		{ name: 'gas', type: 'uint256' },
+		{ name: 'nonce', type: 'uint256' },
+		{ name: 'data', type: 'bytes' },
+	],
+};
+export function unsignedEip712Creator(
+	from: string,
+	to: string,
+	data: string,
+	value: string,
+	nonce: string,
+	gas: string,
+	forwarderHash: string,
+	chainId: number
+) {
+	const request = {
+		from: from,
+		to: to,
+		data: data,
+		value: value,
+		nonce: nonce,
+		gas: gas,
+	};
+
+	const targetDomain = _.cloneDeep(FORWARDER_DOMAIN);
+	targetDomain['verifyingContract'] = forwarderHash;
+	targetDomain['chainId'] = chainId;
+
+	return {
+		types: FORWARDER_TYPES,
+		domain: targetDomain,
+		primaryType: 'ForwardRequest',
+		message: request,
+	};
+}
