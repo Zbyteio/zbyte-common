@@ -53,7 +53,8 @@ jobs:
       - name: Version
         run: |
           commit=$(git rev-parse HEAD | head -c 7)
-          jq ".version = \"0.0.0-$commit\"" package.json > /tmp/file && mv /tmp/file package.json 
+          currVersion=$(jq -r .version package.json)
+          jq ".version = \"$currVersion-$commit\"" package.json > /tmp/file && mv /tmp/file package.json 
       - name: Clean Install NPM modules
         run: npm ci
         env:
