@@ -38,12 +38,12 @@ describe('transaction interfaces ', () => {
 		it('should allow for creating an unsigned transaction metadata object', () => {
 			const txnMetadata: UnSignedTxnMetaData = {
 				operation: RelayOperations.TRANSFER,
-				zbyteTokens: '100',
+				dplatTokens: '100',
 				functionName: 'foo',
 				chainID: 123,
 			};
 			expect(txnMetadata.operation).toEqual(RelayOperations.TRANSFER);
-			expect(txnMetadata.zbyteTokens).toEqual('100');
+			expect(txnMetadata.dplatTokens).toEqual('100');
 			expect(txnMetadata.functionName).toEqual('foo');
 		});
 	});
@@ -86,7 +86,7 @@ describe('transaction interfaces ', () => {
 				],
 				metadata: {
 					operation: RelayOperations.TRANSFER,
-					zbyteTokens: '100',
+					dplatTokens: '100',
 					functionName: 'foo',
 					chainID: 123,
 				},

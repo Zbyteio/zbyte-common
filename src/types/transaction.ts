@@ -28,7 +28,7 @@ export interface TxnMetadata {
 
 export interface UnSignedTxnMetaData {
 	operation: RelayOperations;
-	zbyteTokens: string;
+	dplatTokens: string;
 	contractHash?: string;
 	functionName: string;
 	contractArgs?: Args[];
