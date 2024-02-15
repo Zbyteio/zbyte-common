@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://npm.pkg.github.com/Zbyteio"
 	},
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "Library which stores all the common types and config",
 	"main": "dist/bundle.js",
 	"browser": "dist/bundle.js",
