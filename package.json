@@ -4,7 +4,7 @@
 		"registry": "https://npm.pkg.github.com/Zbyteio"
 	},
 	"version": "1.1.0",
-	"description": "Library which stores all the common types and config",
+	"description": "The zbyte-common package is an essential part of the zbyte SDKs ecosystem, providing a centralized repository of configurations, types/interfaces, utility functions, and more. Its purpose is to ensure consistency and reusability across the various zbyte SDKs, streamlining the development process and enhancing maintainability.",
 	"main": "dist/bundle.js",
 	"browser": "dist/bundle.js",
 	"types": "dist/index.d.ts",
@@ -21,7 +21,8 @@
 		"url": "git+https://github.com/Zbyteio/zbyte-common.git"
 	},
 	"keywords": [
-		"zbyte-common"
+		"zbyte-common",
+		"zbyte-wallet-interface"
 	],
 	"files": [
 		"dist"
