@@ -66,7 +66,7 @@ describe('getBlockchainNetwork', () => {
 		const chainId = CHAIN_ID_MATIC_TESTNET;
 		const expectedNetworkConfig: NetworkConfig = {
 			networkName: 'Polygon',
-			networkRpcUrl: 'https://polygon-mumbai.blockpi.network/v1/rpc/public',
+			networkRpcUrl: 'https://rpc-mumbai.polygon.technology',
 			chainId: CHAIN_ID_MATIC_TESTNET,
 			chainSymbol: MATIC,
 			explorer: 'https://mumbai.polygonscan.com/',
