@@ -61,15 +61,15 @@ describe('getBlockchainNetwork', () => {
 		expect(result).toEqual(expectedNetworkConfig);
 	});
 
-	// Positive scenario - should return the correct network configuration for Matic Mumbai
+	// Positive scenario - should return the correct network configuration for Matic Amoy
 	test('should return correct network config for Polygon Testnet', () => {
 		const chainId = CHAIN_ID_MATIC_TESTNET;
 		const expectedNetworkConfig: NetworkConfig = {
 			networkName: 'Polygon',
-			networkRpcUrl: 'https://rpc-mumbai.polygon.technology',
+			networkRpcUrl: 'https://rpc-amoy.polygon.technology',
 			chainId: CHAIN_ID_MATIC_TESTNET,
 			chainSymbol: MATIC,
-			explorer: 'https://mumbai.polygonscan.com/',
+			explorer: 'https://www.oklink.com/amoy',
 			networkType: TESTNET,
 		};
 		const result = getBlockchainNetwork(chainId);
