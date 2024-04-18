@@ -30,10 +30,10 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 		case CHAIN_ID_MATIC_TESTNET:
 			return {
 				networkName: 'Polygon',
-				networkRpcUrl: 'https://rpc-mumbai.polygon.technology',
+				networkRpcUrl: 'https://rpc-amoy.polygon.technology',
 				chainId: CHAIN_ID_MATIC_TESTNET,
 				chainSymbol: MATIC,
-				explorer: 'https://mumbai.polygonscan.com/',
+				explorer: 'https://www.oklink.com/amoy',
 				networkType: TESTNET,
 			};
 		case CHAIN_ID_AVAX_MAINNET:
@@ -139,11 +139,9 @@ export function getRPCNetworkUrls(chainId: number): Array<string> {
 			];
 		case CHAIN_ID_MATIC_TESTNET:
 			return [
-				'https://api.zan.top/node/v1/polygon/mumbai/public',
-				'https://rpc.ankr.com/polygon_mumbai',
-				'https://polygon-mumbai.blockpi.network/v1/rpc/public',
-				'https://endpoints.omniatech.io/v1/matic/mumbai/public',
-				'https://polygon-testnet.public.blastapi.io',
+				'https://polygon-amoy-bor-rpc.publicnode.com',
+				'https://polygon-bor-amoy-rpc.publicnode.com',
+				'https://polygon-amoy.blockpi.network/v1/rpc/public',
 			];
 		case CHAIN_ID_AVAX_MAINNET:
 			return [
