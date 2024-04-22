@@ -69,7 +69,7 @@ describe('getBlockchainNetwork', () => {
 			networkRpcUrl: 'https://rpc-amoy.polygon.technology',
 			chainId: CHAIN_ID_MATIC_TESTNET,
 			chainSymbol: MATIC,
-			explorer: 'https://www.oklink.com/amoy',
+			explorer: 'https://www.oklink.com/amoy/',
 			networkType: TESTNET,
 		};
 		const result = getBlockchainNetwork(chainId);
