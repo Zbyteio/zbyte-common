@@ -54,6 +54,15 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 				explorer: 'https://polygonscan.com/',
 				networkType: MAINNET,
 			};
+		case 80001:
+			return {
+				networkName: 'Polygon',
+				networkRpcUrl: 'https://rpc-mumbai.polygon.technology',
+				chainId: 80001,
+				chainSymbol: MATIC,
+				explorer: 'https://mumbai.polygonscan.com/',
+				networkType: TESTNET,
+			};
 		default:
 			throw new Error('Given blockchain Id is not yet supported');
 	}
