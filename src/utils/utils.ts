@@ -3,8 +3,11 @@ import {
 	AVAX,
 	CHAIN_ID_AVAX_MAINNET,
 	CHAIN_ID_AVAX_TESTNET,
+	CHAIN_ID_HBAR_MAINNET,
+	CHAIN_ID_HBAR_TESTNET,
 	CHAIN_ID_MATIC_MAINNET,
 	CHAIN_ID_MATIC_TESTNET,
+	HBAR,
 	MAINNET,
 	MATIC,
 	TESTNET,
@@ -36,6 +39,15 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 				explorer: 'https://www.oklink.com/amoy/',
 				networkType: TESTNET,
 			};
+		case CHAIN_ID_HBAR_TESTNET:
+			return {
+				networkName: 'Hedera',
+				networkRpcUrl: 'https://testnet.hashio.io/api',
+				chainId: CHAIN_ID_HBAR_TESTNET,
+				chainSymbol: HBAR,
+				explorer: 'https://hashscan.io/testnet/dashboard/',
+				networkType: TESTNET,
+			};
 		case CHAIN_ID_AVAX_MAINNET:
 			return {
 				networkName: 'Avalanche',
@@ -52,6 +64,15 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 				chainId: CHAIN_ID_MATIC_MAINNET,
 				chainSymbol: MATIC,
 				explorer: 'https://polygonscan.com/',
+				networkType: MAINNET,
+			};
+		case CHAIN_ID_HBAR_MAINNET:
+			return {
+				networkName: 'Hedera',
+				networkRpcUrl: 'https://mainnet.hashio.io/api',
+				chainId: CHAIN_ID_HBAR_MAINNET,
+				chainSymbol: HBAR,
+				explorer: 'https://hashscan.io/mainnet/dashboard',
 				networkType: MAINNET,
 			};
 		case 80001:
@@ -74,6 +95,9 @@ export function getSupportedBlockchainNetworkList() {
 		CHAIN_ID_AVAX_TESTNET,
 		CHAIN_ID_MATIC_MAINNET,
 		CHAIN_ID_MATIC_TESTNET,
+		CHAIN_ID_HBAR_MAINNET,
+		CHAIN_ID_HBAR_TESTNET,
+		80001,
 	];
 	const blockchainNetworks: Array<NetworkConfig> = [];
 	supportedChainIds.forEach((chainId) => {
@@ -152,6 +176,8 @@ export function getRPCNetworkUrls(chainId: number): Array<string> {
 				'https://polygon-bor-amoy-rpc.publicnode.com',
 				'https://polygon-amoy.blockpi.network/v1/rpc/public',
 			];
+		case CHAIN_ID_HBAR_TESTNET:
+			return ['https://testnet.hashio.io/api'];
 		case CHAIN_ID_AVAX_MAINNET:
 			return [
 				'https://avalanche.public-rpc.com',
@@ -167,6 +193,8 @@ export function getRPCNetworkUrls(chainId: number): Array<string> {
 				'https://polygon-rpc.com',
 				'https://polygon.rpc.blxrbdn.com',
 			];
+		case CHAIN_ID_HBAR_MAINNET:
+			return ['https://mainnet.hashio.io/api'];
 		default:
 			throw new Error('Given blockchain Id is not yet supported');
 	}
