@@ -60,7 +60,7 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 		case CHAIN_ID_MATIC_MAINNET:
 			return {
 				networkName: 'Polygon',
-				networkRpcUrl: 'https://rpc-mainnet.maticvigil.com/',
+				networkRpcUrl: 'https://polygon-rpc.com/',
 				chainId: CHAIN_ID_MATIC_MAINNET,
 				chainSymbol: MATIC,
 				explorer: 'https://polygonscan.com/',
