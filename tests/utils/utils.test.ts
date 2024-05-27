@@ -96,7 +96,7 @@ describe('getBlockchainNetwork', () => {
 		const chainId = CHAIN_ID_MATIC_MAINNET;
 		const expectedNetworkConfig: NetworkConfig = {
 			networkName: 'Polygon',
-			networkRpcUrl: 'https://rpc-mainnet.maticvigil.com/',
+			networkRpcUrl: 'https://polygon-rpc.com/',
 			chainId: CHAIN_ID_MATIC_MAINNET,
 			chainSymbol: MATIC,
 			explorer: 'https://polygonscan.com/',
