@@ -60,7 +60,7 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 		case CHAIN_ID_MATIC_MAINNET:
 			return {
 				networkName: 'Polygon',
-				networkRpcUrl: 'https://polygon-rpc.com/',
+				networkRpcUrl: 'https://polygon-rpc.com',
 				chainId: CHAIN_ID_MATIC_MAINNET,
 				chainSymbol: MATIC,
 				explorer: 'https://polygonscan.com/',
@@ -168,12 +168,11 @@ export function getRPCNetworkUrls(chainId: number): Array<string> {
 				'https://rpc.ankr.com/avalanche_fuji',
 				'https://ava-testnet.public.blastapi.io/ext/bc/C/rpc',
 				'https://avalanche-fuji.blockpi.network/v1/rpc/public',
-				'https://api.avax-test.network/ext/bc/C/rpc',
 			];
 		case CHAIN_ID_MATIC_TESTNET:
 			return [
 				'https://polygon-amoy-bor-rpc.publicnode.com',
-				'https://polygon-bor-amoy-rpc.publicnode.com',
+				'https://polygon-amoy.drpc.org',
 				'https://polygon-amoy.blockpi.network/v1/rpc/public',
 			];
 		case CHAIN_ID_HBAR_TESTNET:
@@ -183,14 +182,12 @@ export function getRPCNetworkUrls(chainId: number): Array<string> {
 				'https://avalanche.public-rpc.com',
 				'https://endpoints.omniatech.io/v1/avax/mainnet/public',
 				'https://rpc.ankr.com/avalanche',
-				'https://api.avax.network/ext/bc/C/rpc',
 			];
 		case CHAIN_ID_MATIC_MAINNET:
 			return [
 				'https://polygon.llamarpc.com',
 				'https://polygon-bor.publicnode.com',
 				'https://rpc.ankr.com/polygon',
-				'https://polygon-rpc.com',
 				'https://polygon.rpc.blxrbdn.com',
 			];
 		case CHAIN_ID_HBAR_MAINNET:
