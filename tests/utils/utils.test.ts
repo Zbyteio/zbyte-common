@@ -13,6 +13,9 @@ import {
 	MATIC,
 	TESTNET,
 	MAINNET,
+	CHAIN_ID_HBAR_MAINNET,
+	CHAIN_ID_HBAR_TESTNET,
+	HBAR,
 } from '../../src/constants';
 import { NetworkConfig } from '../../src/types/common';
 import axios, { AxiosError } from 'axios';
@@ -76,6 +79,21 @@ describe('getBlockchainNetwork', () => {
 		expect(result).toEqual(expectedNetworkConfig);
 	});
 
+	// Positive scenario - should return the correct network configuration for HBAR
+	test('should return correct network config for Hedera Testnet', () => {
+		const chainId = CHAIN_ID_HBAR_TESTNET;
+		const expectedNetworkConfig: NetworkConfig = {
+			networkName: 'Hedera',
+			networkRpcUrl: 'https://testnet.hashio.io/api',
+			chainId: CHAIN_ID_HBAR_TESTNET,
+			chainSymbol: HBAR,
+			explorer: 'https://hashscan.io/testnet/dashboard/',
+			networkType: TESTNET,
+		};
+		const result = getBlockchainNetwork(chainId);
+		expect(result).toEqual(expectedNetworkConfig);
+	});
+
 	// Positive scenario - should return the correct network configuration for Avalanche Mainnet C-Chain
 	test('should return correct network config for Avalanche Mainnet', () => {
 		const chainId = CHAIN_ID_AVAX_MAINNET;
@@ -96,10 +114,25 @@ describe('getBlockchainNetwork', () => {
 		const chainId = CHAIN_ID_MATIC_MAINNET;
 		const expectedNetworkConfig: NetworkConfig = {
 			networkName: 'Polygon',
-			networkRpcUrl: 'https://polygon-rpc.com/',
+			networkRpcUrl: 'https://polygon-rpc.com',
 			chainId: CHAIN_ID_MATIC_MAINNET,
 			chainSymbol: MATIC,
 			explorer: 'https://polygonscan.com/',
+			networkType: MAINNET,
+		};
+		const result = getBlockchainNetwork(chainId);
+		expect(result).toEqual(expectedNetworkConfig);
+	});
+
+	// Positive scenario - should return the correct network configuration for HBAR mainnet
+	test('should return correct network config for Hedera Mainnet', () => {
+		const chainId = CHAIN_ID_HBAR_MAINNET;
+		const expectedNetworkConfig: NetworkConfig = {
+			networkName: 'Hedera',
+			networkRpcUrl: 'https://mainnet.hashio.io/api',
+			chainId: CHAIN_ID_HBAR_MAINNET,
+			chainSymbol: HBAR,
+			explorer: 'https://hashscan.io/mainnet/dashboard',
 			networkType: MAINNET,
 		};
 		const result = getBlockchainNetwork(chainId);
@@ -121,6 +154,9 @@ test('getSupportedBlockchainNetworkList should return an array of supported bloc
 		CHAIN_ID_AVAX_TESTNET,
 		CHAIN_ID_MATIC_MAINNET,
 		CHAIN_ID_MATIC_TESTNET,
+		CHAIN_ID_HBAR_MAINNET,
+		CHAIN_ID_HBAR_TESTNET,
+		80001,
 	];
 
 	const expectedBlockchains = supportedChainIds.map((chainId) => getBlockchainNetwork(chainId));
