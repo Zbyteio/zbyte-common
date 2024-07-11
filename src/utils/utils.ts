@@ -5,9 +5,12 @@ import {
 	CHAIN_ID_AVAX_TESTNET,
 	CHAIN_ID_HBAR_MAINNET,
 	CHAIN_ID_HBAR_TESTNET,
+	CHAIN_ID_BASE_MAINNET,
+	CHAIN_ID_BASE_TESTNET,
 	CHAIN_ID_MATIC_MAINNET,
 	CHAIN_ID_MATIC_TESTNET,
 	HBAR,
+	BASE,
 	MAINNET,
 	MATIC,
 	TESTNET,
@@ -48,6 +51,15 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 				explorer: 'https://hashscan.io/testnet/dashboard/',
 				networkType: TESTNET,
 			};
+		case CHAIN_ID_BASE_TESTNET:
+			return {
+				networkName: 'Base',
+				networkRpcUrl: 'https://sepolia.base.org',
+				chainId: CHAIN_ID_BASE_TESTNET,
+				chainSymbol: BASE,
+				explorer: 'https://sepolia.basescan.org/',
+				networkType: TESTNET,
+			};
 		case CHAIN_ID_AVAX_MAINNET:
 			return {
 				networkName: 'Avalanche',
@@ -75,6 +87,15 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 				explorer: 'https://hashscan.io/mainnet/dashboard',
 				networkType: MAINNET,
 			};
+		case CHAIN_ID_BASE_MAINNET:
+			return {
+				networkName: 'Base',
+				networkRpcUrl: 'https://base.drpc.org',
+				chainId: CHAIN_ID_BASE_MAINNET,
+				chainSymbol: BASE,
+				explorer: 'https://basescan.org/',
+				networkType: MAINNET,
+			};
 		case 80001:
 			return {
 				networkName: 'Polygon',
@@ -97,6 +118,8 @@ export function getSupportedBlockchainNetworkList() {
 		CHAIN_ID_MATIC_TESTNET,
 		CHAIN_ID_HBAR_MAINNET,
 		CHAIN_ID_HBAR_TESTNET,
+		CHAIN_ID_BASE_MAINNET,
+		CHAIN_ID_BASE_TESTNET,
 		80001,
 	];
 	const blockchainNetworks: Array<NetworkConfig> = [];
@@ -177,6 +200,12 @@ export function getRPCNetworkUrls(chainId: number): Array<string> {
 			];
 		case CHAIN_ID_HBAR_TESTNET:
 			return ['https://testnet.hashio.io/api'];
+		case CHAIN_ID_BASE_TESTNET:
+			return [
+				'https://testnet.hashio.io/api',
+				'https://base-sepolia-rpc.publicnode.com',
+				'https://base-sepolia.blockpi.network/v1/rpc/public',
+			];
 		case CHAIN_ID_AVAX_MAINNET:
 			return [
 				'https://avalanche.public-rpc.com',
@@ -192,6 +221,12 @@ export function getRPCNetworkUrls(chainId: number): Array<string> {
 			];
 		case CHAIN_ID_HBAR_MAINNET:
 			return ['https://mainnet.hashio.io/api'];
+		case CHAIN_ID_BASE_MAINNET:
+			return [
+				'https://base.llamarpc.com',
+				'https://base-pokt.nodies.app',
+				'https://base.meowrpc.com',
+			];
 		default:
 			throw new Error('Given blockchain Id is not yet supported');
 	}
