@@ -18,7 +18,7 @@ import {
 	HBAR,
 	CHAIN_ID_BASE_MAINNET,
 	CHAIN_ID_BASE_TESTNET,
-	BASE,
+	ETH,
 } from '../../src/constants';
 import { NetworkConfig } from '../../src/types/common';
 import axios, { AxiosError } from 'axios';
@@ -104,7 +104,7 @@ describe('getBlockchainNetwork', () => {
 			networkName: 'Base',
 			networkRpcUrl: 'https://sepolia.base.org',
 			chainId: CHAIN_ID_BASE_TESTNET,
-			chainSymbol: BASE,
+			chainSymbol: ETH,
 			explorer: 'https://sepolia.basescan.org/',
 			networkType: TESTNET,
 		};
@@ -164,7 +164,7 @@ describe('getBlockchainNetwork', () => {
 			networkName: 'Base',
 			networkRpcUrl: 'https://base.drpc.org',
 			chainId: CHAIN_ID_BASE_MAINNET,
-			chainSymbol: BASE,
+			chainSymbol: ETH,
 			explorer: 'https://basescan.org/',
 			networkType: MAINNET,
 		};
