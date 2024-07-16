@@ -9,6 +9,6 @@ export const CHAIN_ID_BASE_MAINNET = 8453;
 export const AVAX = 'avax';
 export const MATIC = 'matic';
 export const HBAR = 'hbar';
-export const BASE = 'base';
+export const ETH = 'eth';
 export const TESTNET = 'Testnet';
 export const MAINNET = 'Mainnet';

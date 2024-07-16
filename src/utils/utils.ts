@@ -10,7 +10,7 @@ import {
 	CHAIN_ID_MATIC_MAINNET,
 	CHAIN_ID_MATIC_TESTNET,
 	HBAR,
-	BASE,
+	ETH,
 	MAINNET,
 	MATIC,
 	TESTNET,
@@ -56,7 +56,7 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 				networkName: 'Base',
 				networkRpcUrl: 'https://sepolia.base.org',
 				chainId: CHAIN_ID_BASE_TESTNET,
-				chainSymbol: BASE,
+				chainSymbol: ETH,
 				explorer: 'https://sepolia.basescan.org/',
 				networkType: TESTNET,
 			};
@@ -92,7 +92,7 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 				networkName: 'Base',
 				networkRpcUrl: 'https://base.drpc.org',
 				chainId: CHAIN_ID_BASE_MAINNET,
-				chainSymbol: BASE,
+				chainSymbol: ETH,
 				explorer: 'https://basescan.org/',
 				networkType: MAINNET,
 			};
