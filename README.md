@@ -17,7 +17,7 @@ The structure of zbyte-common is intentionally organized to promote ease of navi
 **Naming Convention**: Types and interfaces begin with an uppercase letter, following the PascalCase convention. This practice helps differentiate types/interfaces from standard variables and functions.
 *Example: UserResponse, ApiOptions*
 
-### utils
+###utils
 **Purpose**: Contains utility functions that offer common functionality needed by various parts of the SDKs. These functions range from data manipulation to more complex operations that are reused across different contexts.
 **Characteristics**: Utility functions should be designed to be as generic and reusable as possible, minimizing dependencies on specific SDK implementations.
 
@@ -34,14 +34,21 @@ Contributors are encouraged to expand the zbyte-common package by adding new dir
 - For development check create branch in **feature/example-name or bugfix/example-name** format.
 
 ## Installation
+
+- Before installing the lib user need to add **.npmrc** file in home directory which will contain the below details
+  
+  ```sh
+  @zbyteio:registry=https://npm.pkg.github.com
+  //npm.pkg.github.com/:_authToken={PAT}
+  ```
 - You can install the library using npm package manager
   ```
-  npm install @zbyteio/zbyte-common@1.1.5
+  npm install @zbyteio/zbyte-common@1.1.0
   ```
--  Install via package.json
+- Install via package.json
   ```
-  "@zbyteio/zbyte-common": "1.1.5"
+  "@zbyteio/zbyte-common": "1.1.0"
   ```
-
+- *1.1.0 is the example version.*
 
 
