@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "1.1.5",
+	"version": "1.1.6",
 	"description": "The zbyte-common package is an essential part of the zbyte SDKs ecosystem, providing a centralized repository of configurations, types/interfaces, utility functions, and more. Its purpose is to ensure consistency and reusability across the various zbyte SDKs, streamlining the development process and enhancing maintainability.",
 	"main": "dist/bundle.js",
 	"browser": "dist/bundle.js",

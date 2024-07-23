@@ -16,6 +16,9 @@ import {
 	CHAIN_ID_HBAR_MAINNET,
 	CHAIN_ID_HBAR_TESTNET,
 	HBAR,
+	CHAIN_ID_BASE_MAINNET,
+	CHAIN_ID_BASE_TESTNET,
+	ETH,
 } from '../../src/constants';
 import { NetworkConfig } from '../../src/types/common';
 import axios, { AxiosError } from 'axios';
@@ -94,6 +97,21 @@ describe('getBlockchainNetwork', () => {
 		expect(result).toEqual(expectedNetworkConfig);
 	});
 
+	// Positive scenario - should return the correct network configuration for BASE
+	test('should return correct network config for Hedera Testnet', () => {
+		const chainId = CHAIN_ID_BASE_TESTNET;
+		const expectedNetworkConfig: NetworkConfig = {
+			networkName: 'Base',
+			networkRpcUrl: 'https://sepolia.base.org',
+			chainId: CHAIN_ID_BASE_TESTNET,
+			chainSymbol: ETH,
+			explorer: 'https://sepolia.basescan.org/',
+			networkType: TESTNET,
+		};
+		const result = getBlockchainNetwork(chainId);
+		expect(result).toEqual(expectedNetworkConfig);
+	});
+
 	// Positive scenario - should return the correct network configuration for Avalanche Mainnet C-Chain
 	test('should return correct network config for Avalanche Mainnet', () => {
 		const chainId = CHAIN_ID_AVAX_MAINNET;
@@ -139,6 +157,21 @@ describe('getBlockchainNetwork', () => {
 		expect(result).toEqual(expectedNetworkConfig);
 	});
 
+	// Positive scenario - should return the correct network configuration for BASE mainnet
+	test('should return correct network config for Hedera Mainnet', () => {
+		const chainId = CHAIN_ID_BASE_MAINNET;
+		const expectedNetworkConfig: NetworkConfig = {
+			networkName: 'Base',
+			networkRpcUrl: 'https://base.drpc.org',
+			chainId: CHAIN_ID_BASE_MAINNET,
+			chainSymbol: ETH,
+			explorer: 'https://basescan.org/',
+			networkType: MAINNET,
+		};
+		const result = getBlockchainNetwork(chainId);
+		expect(result).toEqual(expectedNetworkConfig);
+	});
+
 	// Negative scenario - should throw an error if the given blockchain id is not supported
 	test('getBlockchainNetwork should throw error for unsupported chain id', () => {
 		const unsupportedChainId = 123;
@@ -156,6 +189,8 @@ test('getSupportedBlockchainNetworkList should return an array of supported bloc
 		CHAIN_ID_MATIC_TESTNET,
 		CHAIN_ID_HBAR_MAINNET,
 		CHAIN_ID_HBAR_TESTNET,
+		CHAIN_ID_BASE_MAINNET,
+		CHAIN_ID_BASE_TESTNET,
 		80001,
 	];
 
