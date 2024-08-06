@@ -90,7 +90,7 @@ describe('getBlockchainNetwork', () => {
 			networkRpcUrl: 'https://testnet.hashio.io/api',
 			chainId: CHAIN_ID_HBAR_TESTNET,
 			chainSymbol: HBAR,
-			explorer: 'https://hashscan.io/testnet/dashboard/',
+			explorer: 'https://hashscan.io/testnet/',
 			networkType: TESTNET,
 		};
 		const result = getBlockchainNetwork(chainId);
@@ -150,7 +150,7 @@ describe('getBlockchainNetwork', () => {
 			networkRpcUrl: 'https://mainnet.hashio.io/api',
 			chainId: CHAIN_ID_HBAR_MAINNET,
 			chainSymbol: HBAR,
-			explorer: 'https://hashscan.io/mainnet/dashboard',
+			explorer: 'https://hashscan.io/mainnet/',
 			networkType: MAINNET,
 		};
 		const result = getBlockchainNetwork(chainId);
