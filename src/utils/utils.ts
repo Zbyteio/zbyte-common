@@ -48,7 +48,7 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 				networkRpcUrl: 'https://testnet.hashio.io/api',
 				chainId: CHAIN_ID_HBAR_TESTNET,
 				chainSymbol: HBAR,
-				explorer: 'https://hashscan.io/testnet/dashboard/',
+				explorer: 'https://hashscan.io/testnet/',
 				networkType: TESTNET,
 			};
 		case CHAIN_ID_BASE_TESTNET:
@@ -84,7 +84,7 @@ export function getBlockchainNetwork(chainId: number): NetworkConfig {
 				networkRpcUrl: 'https://mainnet.hashio.io/api',
 				chainId: CHAIN_ID_HBAR_MAINNET,
 				chainSymbol: HBAR,
-				explorer: 'https://hashscan.io/mainnet/dashboard',
+				explorer: 'https://hashscan.io/mainnet/',
 				networkType: MAINNET,
 			};
 		case CHAIN_ID_BASE_MAINNET:
